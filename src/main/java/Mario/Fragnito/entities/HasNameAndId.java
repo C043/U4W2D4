@@ -1,4 +1,4 @@
-package entities;
+package Mario.Fragnito.entities;
 
 import java.util.Random;
 

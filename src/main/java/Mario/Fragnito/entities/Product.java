@@ -1,4 +1,4 @@
-package entities;
+package Mario.Fragnito.entities;
 
 public class Product extends HasNameAndId {
     private final String category;

@@ -1,4 +1,4 @@
-package entities;
+package Mario.Fragnito.entities;
 
 import java.time.LocalDate;
 import java.util.List;

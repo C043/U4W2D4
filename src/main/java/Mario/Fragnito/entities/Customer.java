@@ -1,4 +1,4 @@
-package entities;
+package Mario.Fragnito.entities;
 
 public class Customer extends HasNameAndId {
     private final int tier;
@@ -9,7 +9,7 @@ public class Customer extends HasNameAndId {
     }
 
     public int getTier() {
-        return tier;
+        return this.tier;
     }
 
     @Override
