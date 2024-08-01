@@ -121,7 +121,12 @@ public class Application {
         categoryKeySet.forEach(key -> System.out.println(key + " - " + sumCostPerCategory.get(key)));
 
         System.out.println("----------------Es6-------------------");
+/*
         salvaProdottiSulDisco(totalProducts);
+*/
+
+        System.out.println("----------------Es7-------------------");
+        System.out.println(leggiProdottiDaDisco("src/productList.txt"));
     }
 
     public static List<Product> addToCart(List<Product> list1, List<Product> list2, List<Product> list3) {
@@ -147,5 +152,24 @@ public class Application {
             }
 
         });
+    }
+
+    public static ArrayList<Product> leggiProdottiDaDisco(String pathname) {
+        ArrayList<Product> productList = new ArrayList<>();
+        File file = new File(pathname);
+
+        try {
+            String content = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+            String[] stringProducts = content.split("#");
+            for (String prod : stringProducts) {
+                String[] prodParts = prod.split("@");
+                Product productGen = new Product(prodParts[0], prodParts[1], Double.parseDouble(prodParts[2]));
+                productList.add(productGen);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return productList;
     }
 }
