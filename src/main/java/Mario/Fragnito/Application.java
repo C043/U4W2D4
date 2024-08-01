@@ -3,7 +3,11 @@ package Mario.Fragnito;
 import Mario.Fragnito.entities.Customer;
 import Mario.Fragnito.entities.Order;
 import Mario.Fragnito.entities.Product;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -115,6 +119,9 @@ public class Application {
         Set<String> categoryKeySet = sumCostPerCategory.keySet();
         System.out.println("Divisione dei prodotti per categoria e somma del loro costo:");
         categoryKeySet.forEach(key -> System.out.println(key + " - " + sumCostPerCategory.get(key)));
+
+        System.out.println("----------------Es6-------------------");
+        salvaProdottiSulDisco(totalProducts);
     }
 
     public static List<Product> addToCart(List<Product> list1, List<Product> list2, List<Product> list3) {
@@ -128,5 +135,17 @@ public class Application {
             }
         }
         return shoppingCart;
+    }
+
+    public static void salvaProdottiSulDisco(List<Product> productList) {
+        File file = new File("src/productList.txt");
+        productList.forEach(product -> {
+            try {
+                FileUtils.write(file, product.getName() + "@" + product.getCategory() + "@" + product.getPrice() + "#", StandardCharsets.UTF_8, true);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
     }
 }
