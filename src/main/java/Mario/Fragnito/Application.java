@@ -77,6 +77,11 @@ public class Application {
                 .collect(Collectors.groupingBy(order -> order.getCustomer().getName()));
         Set<String> chiaviUser = ordersGroupedByCustomer.keySet();
         chiaviUser.forEach(chiave -> System.out.println(chiave + " - " + ordersGroupedByCustomer.get(chiave)));
+
+        System.out.println("----------------Es2-------------------");
+        Map<String, Double> totalCartPerCustomer = totalOrders.stream()
+                .collect(Collectors.groupingBy(order -> order.getCustomer().getName(), Collectors.summingDouble(order -> order.getProducts().stream().mapToDouble(Product::getPrice).sum())));
+        chiaviUser.forEach(key -> System.out.println("Totale carrello " + key + ": " + totalCartPerCustomer.get(key)));
     }
 
     public static List<Product> addToCart(List<Product> list1, List<Product> list2, List<Product> list3) {
