@@ -92,6 +92,15 @@ public class Application {
                 .toList();
         System.out.println("I tre libri più costosi:");
         mostExpensiveBook.forEach(System.out::println);
+
+        System.out.println("----------------Es4-------------------");
+        System.out.println("Costo prodotti ordini per customer:");
+        totalOrders.forEach(order -> System.out.println(order.getCustomer().getName() + " - " + order.getProducts().stream().map(Product::getPrice).toList()));
+        Map<String, Double> avgTotalCartPerCustomer = totalOrders.stream()
+                .collect(Collectors.groupingBy(order -> order.getCustomer().getName(), Collectors.averagingDouble(order -> order.getProducts().stream().collect(Collectors.averagingDouble(Product::getPrice)))));
+
+        System.out.println("Media ordini:");
+        chiaviUser.forEach(key -> System.out.println(key + " - " + avgTotalCartPerCustomer.get(key)));
     }
 
     public static List<Product> addToCart(List<Product> list1, List<Product> list2, List<Product> list3) {
