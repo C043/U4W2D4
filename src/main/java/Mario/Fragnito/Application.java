@@ -82,6 +82,16 @@ public class Application {
         Map<String, Double> totalCartPerCustomer = totalOrders.stream()
                 .collect(Collectors.groupingBy(order -> order.getCustomer().getName(), Collectors.summingDouble(order -> order.getProducts().stream().mapToDouble(Product::getPrice).sum())));
         chiaviUser.forEach(key -> System.out.println("Totale carrello " + key + ": " + totalCartPerCustomer.get(key)));
+
+        System.out.println("----------------Es3-------------------");
+        System.out.println("Libri:");
+        books.forEach(System.out::println);
+        List<Product> mostExpensiveBook = books.stream()
+                .sorted(Comparator.comparingDouble(Product::getPrice).reversed())
+                .limit(3)
+                .toList();
+        System.out.println("I tre libri più costosi:");
+        mostExpensiveBook.forEach(System.out::println);
     }
 
     public static List<Product> addToCart(List<Product> list1, List<Product> list2, List<Product> list3) {
