@@ -101,6 +101,20 @@ public class Application {
 
         System.out.println("Media ordini:");
         chiaviUser.forEach(key -> System.out.println(key + " - " + avgTotalCartPerCustomer.get(key)));
+
+        System.out.println("----------------Es5-------------------");
+        List<Product> totalProducts = new ArrayList<>(babyProducts);
+        totalProducts.addAll(boysProducts);
+        totalProducts.addAll(books);
+
+        System.out.println("Tutti i prodotti:");
+        totalProducts.forEach(System.out::println);
+
+        Map<String, Double> sumCostPerCategory = totalProducts.stream()
+                .collect(Collectors.groupingBy(Product::getCategory, Collectors.summingDouble(Product::getPrice)));
+        Set<String> categoryKeySet = sumCostPerCategory.keySet();
+        System.out.println("Divisione dei prodotti per categoria e somma del loro costo:");
+        categoryKeySet.forEach(key -> System.out.println(key + " - " + sumCostPerCategory.get(key)));
     }
 
     public static List<Product> addToCart(List<Product> list1, List<Product> list2, List<Product> list3) {
