@@ -77,9 +77,9 @@ public class Application {
 
         System.out.println("-----------------Es1-----------------");
         List<Order> totalOrders = new ArrayList<>(Arrays.asList(aldoOrder, aldoOrder, giacomoOrder, giovanniOrder));
-        Map<String, List<Order>> ordersGroupedByCustomer = totalOrders.stream()
-                .collect(Collectors.groupingBy(order -> order.getCustomer().getName()));
-        Set<String> chiaviUser = ordersGroupedByCustomer.keySet();
+        Map<Customer, List<Order>> ordersGroupedByCustomer = totalOrders.stream()
+                .collect(Collectors.groupingBy(Order::getCustomer));
+        Set<Customer> chiaviUser = ordersGroupedByCustomer.keySet();
         chiaviUser.forEach(chiave -> System.out.println(chiave + " - " + ordersGroupedByCustomer.get(chiave)));
 
         System.out.println("----------------Es2-------------------");
