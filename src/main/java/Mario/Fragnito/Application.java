@@ -83,8 +83,8 @@ public class Application {
         chiaviUser.forEach(chiave -> System.out.println(chiave + " - " + ordersGroupedByCustomer.get(chiave)));
 
         System.out.println("----------------Es2-------------------");
-        Map<String, Double> totalCartPerCustomer = totalOrders.stream()
-                .collect(Collectors.groupingBy(order -> order.getCustomer().getName(), Collectors.summingDouble(order -> order.getProducts().stream().mapToDouble(Product::getPrice).sum())));
+        Map<Customer, Double> totalCartPerCustomer = totalOrders.stream()
+                .collect(Collectors.groupingBy(Order::getCustomer, Collectors.summingDouble(order -> order.getProducts().stream().mapToDouble(Product::getPrice).sum())));
         chiaviUser.forEach(key -> System.out.println("Totale carrello " + key + ": " + totalCartPerCustomer.get(key)));
 
         System.out.println("----------------Es3-------------------");
@@ -100,8 +100,8 @@ public class Application {
         System.out.println("----------------Es4-------------------");
         System.out.println("Costo prodotti ordini per customer:");
         totalOrders.forEach(order -> System.out.println(order.getCustomer().getName() + " - " + order.getProducts().stream().map(Product::getPrice).toList()));
-        Map<String, Double> avgTotalCartPerCustomer = totalOrders.stream()
-                .collect(Collectors.groupingBy(order -> order.getCustomer().getName(), Collectors.averagingDouble(order -> order.getProducts().stream().collect(Collectors.averagingDouble(Product::getPrice)))));
+        Map<Customer, Double> avgTotalCartPerCustomer = totalOrders.stream()
+                .collect(Collectors.groupingBy(Order::getCustomer, Collectors.averagingDouble(order -> order.getProducts().stream().collect(Collectors.averagingDouble(Product::getPrice)))));
 
         System.out.println("Media ordini:");
         chiaviUser.forEach(key -> System.out.println(key + " - " + avgTotalCartPerCustomer.get(key)));
